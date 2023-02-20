@@ -4,7 +4,7 @@
 .PARAMETER DllLocation
 	Specify application name of the DLL.
 .EXAMPLE
-	exporter.ps1 -DllName "C:\Windows\System32\TextShaping.dll" -Out "C:\Users\me\Desktop\out.txt"
+	exporter.ps1 -DllName "C:\Windows\System32\Kernel32.dll"
 #>
 
 param(
