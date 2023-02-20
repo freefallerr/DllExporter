@@ -2,9 +2,9 @@
 .DESCRIPTION
     A script which wraps DumpBin.exe to fun the exported functions in a DLL and create a list which can be pasted into a DLL. 
 .PARAMETER DllLocation
-	Specify application name of the DLL.
+	Specify application name of the DLL we are proxying.
 .EXAMPLE
-	exporter.ps1 -DllName "C:\Windows\System32\Kernel32.dll"
+	exporter.ps1 -DllName "C:\Windows\System32\TextShaping.dll" -Out "C:\Users\me\Desktop\out.txt"
 #>
 
 param(
