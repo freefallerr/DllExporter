@@ -22,6 +22,24 @@ $DumpPath = "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MS
 
 #Strip filepath and extension for later use
 $DllName = (Get-Item "$DllLocation").BaseName
+$DllName = $DllName+"_original"
+$DefPath = "$DllName.def"
+$PragmaPath = "$DllName"+"_pragma.txt"
+
+#creating the def file to write to later
+if (Test-Path $DefPath) {
+    Remove-Item $DefPath
+}
+
+if (Test-Path $PragmaPath) {
+    Remove-Item $PragmaPath
+}
+
+New-Item -ItemType File -Name $DefPath
+New-Item -ItemType File -Name $PragmaPath
+Add-Content -Path "$DllName.def" -Value "LIBRARY $DllName"  
+Add-Content -Path "$DllName.def" -Value "EXPORTS"    
+
 
 # Run DumpBin.exe with the exports switch and capture the output, print to console.
 & $DumpPath -exports $DllLocation | 
@@ -33,5 +51,6 @@ $DllName = (Get-Item "$DllLocation").BaseName
         $columns = $_ -split ' +'
         $ordinal = $columns[0]
         $functionName = $columns[-1]
-        Write-Host "#pragma comment(linker,"`"/export:$functionName=$DllName.$functionName","@$ordinal"`")"
+        Add-Content -Path $PragmaPath -Value "#pragma comment(linker, `"/export:$functionName=$DllName.$functionName,@$ordinal`")"
+        Add-Content -Path $DefPath -Value "   $functionName=$DllName.$functionName @$ordinal"    
     }
