@@ -38,7 +38,7 @@ if (Test-Path $PragmaPath) {
 New-Item -ItemType File -Name $DefPath
 New-Item -ItemType File -Name $PragmaPath
 Add-Content -Path "$DllName.def" -Value "LIBRARY $DllName"  
-Add-Content -Path "$DllName.def" -Value "EXPORTS"    
+Add-Content -Path "$DllName.def" -Value "EXPORTS"
 
 
 # Run DumpBin.exe with the exports switch and capture the output, print to console.
